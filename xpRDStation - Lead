@@ -1,0 +1,17 @@
+<script>
+  function callbackNews(dataResult, _dados){
+    
+    inicioHtml = '<img src="https://site/mtracking.gif?tags=newletter&email=';
+    fimHtml = '">'
+    var email = undefined;
+    if(_dados == undefined){
+      email = $(".newsletter-client-email").val();
+      var nome = $(".newsletter-client-name").val();
+     
+    }else{
+      email = _dados.email;
+    }
+    jQuery(function($){ $('body').append(inicioHtml+email+fimHtml); });
+  }
+</script>
+
