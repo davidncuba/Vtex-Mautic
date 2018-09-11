@@ -1,0 +1,44 @@
+<script>
+   var email = xp_geral.GetEmailSite();
+    inicioHtml = '<img src="https://site/mtracking.gif?tags=-carrinho,convertido&email=';
+    fimHtml = '">'
+function IncluirPedido(){
+    var UF = {{Checkout - Cliente - UF}};
+	var cidade = {{Checkout - Cliente - Cidade}};
+	var email = {{visitorContactInfo0}};
+    var produtos = {{transactionProducts}};
+    var valorPedido = {{transactionTotal}};
+  	var valorFrete = {{transactionShipping}};
+  	var valorSubtotal = {{transactionSubtotal}};
+  	var formaPagamento = {{transactionPaymentType0paymentSystemName}};
+    var produtosLista = new Array();
+  	var departamentosLista = new Array();
+  	var subcategoriasLista = new Array();
+    var categoriasLista = new Array();
+  	var marcasLista = new Array();
+  	for(var i = 0; i < produtos.length; i++){
+    	var produto = produtos[i];
+      	marcasLista.push(produto.brand);
+	    produtosLista.push(produto.name);
+      	for (var j = 0; j < produto.categoryTree.length; j++){
+          	var nivel = produto.categoryTree[j];
+          	switch(j){
+				case 0:
+            		departamentosLista.push(nivel);
+					break;
+                case 1:
+					categoriasLista.push(nivel);
+                	break;
+              	case 2:
+                	subcategoriasLista.push(nivel);
+                	break;
+            }
+        }
+  	}
+
+  	 jQuery(function($){ $('body').append(inicioHtml+email+fimHtml); }); 
+	
+  
+}
+IncluirPedido();  
+</script>
