@@ -1,0 +1,55 @@
+<script>
+function IncluirLead(){
+    var email = xp_geral.GetEmailSite();
+    inicioHtml = '<img src="https://site/mtracking.gif?tags=carrinho&email=';
+    fimHtml = '">'
+    if (email == undefined){
+      if($("#client-pre-email").length == 1 && $("#client-pre-email").val().length > 0){
+        email = $("#client-pre-email").val();
+      }
+    }
+    console.log("IncluirLead:"+email);
+  if(email != undefined){
+        var UF = {{Checkout - Cliente - UF}};
+      var cidade = {{Checkout - Cliente - Cidade}};
+        var produtos = {{orderFormProducts}};
+      var valorPedido = {{orderFormTotal}} / 100;
+      var valorFrete = {{orderFormShipping}};
+      var valorSubtotal = {{orderFormSubtotal}};
+      var produtosLista = new Array();
+        var departamentosLista = new Array();
+        var subcategoriasLista = new Array();
+        var categoriasLista = new Array();
+        var marcasLista = new Array();
+  
+      valorPedido = (valorPedido == undefined) ? 0 : valorPedido;
+      valorFrete = (valorFrete == undefined) ? 0 : valorFrete;
+      valorSubtotal = (valorSubtotal == undefined) ? 0 : valorSubtotal;
+  
+        for(var i = 0; i < produtos.length; i++){
+            var produto = produtos[i];
+            marcasLista.push(produto.brand);
+            produtosLista.push(produto.name);
+            for (var j = 0; j < produto.categoryTree.length; j++){
+                var nivel = produto.categoryTree[j];
+                switch(j){
+                    case 0:
+                        departamentosLista.push(nivel);
+                        break;
+                    case 1:
+                        categoriasLista.push(nivel);
+                        break;
+                    case 2:
+                        subcategoriasLista.push(nivel);
+                        break;
+                }
+            }
+        }
+  
+      
+     jQuery(function($){ $('body').append(inicioHtml+email+fimHtml); });   
+  }
+  
+}
+IncluirLead();  
+</script>
